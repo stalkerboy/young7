@@ -15,23 +15,29 @@ export class Simulater {
       for (let hour = 9; hour < 21; hour++) {
         do {
           action = this.inputAction();
-          isValidAction = this.world.testAction(action);
+          isValidAction = this.world.checkAction(action);
         } while (!isValidAction);
         this.world.processAction(action);
+        // console.log("day: ", this.world.getDay());
+        // console.log("hour: ", this.world.getHour());
       }
+      this.world.eatRamen(this.inputRamen());
     }
-    // console.log(this.world.curTime);
-    // console.log(this.world.actionHistory);
   }
 
   inputAction() {
     let action = {
-      region: "1",
+      regionNo: "1",
       type: "build",
       target: "1",
-      knights: ["watari", "kaji"]
+      knights: ["watari", "kaji", "uryu"]
     };
 
     return action;
+  }
+
+  inputRamen() {
+    let knights = ["watari", "kaji", "uryu"];
+    return knights;
   }
 }

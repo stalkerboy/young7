@@ -1,25 +1,35 @@
-import { Conductor } from "./conductor";
-import { KnightData } from "./data";
+import { KnightData, RegionData } from "./data";
 import { Knight } from "./knight";
+import { Region } from "./region";
 
 export class World {
   constructor(knights) {
     this.actionHistory = [];
     this.curTime = 0;
 
-    const knights = knights ? knights : this.createAllKnight();
-    this.conductor = new Conductor(knights);
+    this.knights = knights ? knights : this.createAllKnight();
+    this.regions = this.createAllRegion();
   }
 
   createAllKnight() {
-    let knights = [];
-    for (knight of KnightData) {
-      knights.push(new Knight(knight));
+    const knights = {};
+    for (let key in KnightData) {
+      knights[key] = new Knight(KnightData[key]);
     }
     return knights;
   }
 
-  testAction(action) {
+  createAllRegion() {
+    let regions = [];
+    for (let region of RegionData) {
+      regions.push(new Region(region));
+    }
+    return regions;
+  }
+
+  checkAction(action) {
+    const region = this.regions[action.regionNo];
+    // return region.checkAction(action);
     return true;
   }
 
@@ -28,11 +38,40 @@ export class World {
     this.curTime++;
   }
 
+  processDay() {
+    this.dayRest();
+  }
+
+  eatRamen(knightNames = []) {
+    knightNames.forEach(knightName => {
+      this.knights[knightName].eatRamen();
+    });
+  }
+
+  dayRest() {
+    this.knights.forEach(knight => {
+      knight.dayRest();
+    });
+  }
+
   getHour() {
     return this.curTime % 12;
   }
 
   getDay() {
-    return this.curTime / 12 + 1;
+    return parseInt(this.curTime / 12) + 1;
   }
+
+  getScience() {
+    this.regions.reduce((science, region) => {
+      // let cur = region.buildings.reduce((acc, building) => {
+      //   return aaa;
+      // });
+      // return science + cur;
+    });
+  }
+
+  getSpirit() {}
+
+  getInfomation() {}
 }

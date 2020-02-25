@@ -11,4 +11,18 @@ export class Knight {
     this.clearPatrolCount = knight.clearPatrolCount;
     this.clearValue = knight.clearValue;
   }
+
+  eatRamen() {
+    this.fatigue += 20;
+    if (this.fatigue > 100) {
+      this.fatigue = 100;
+    }
+  }
+
+  dayRest() {
+    this.fatigue += 5;
+    if (this.fatigue > 100) {
+      this.fatigue = 100;
+    }
+  }
 }
