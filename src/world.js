@@ -1,4 +1,4 @@
-import { KnightData, RegionData } from "./data";
+import { KnightData, RegionData, BuildingData } from "./data";
 import { Knight } from "./knight";
 import { Region } from "./region";
 
@@ -9,6 +9,8 @@ export class World {
 
     this.knights = knights ? knights : this.createAllKnight();
     this.regions = this.createAllRegion();
+
+    this.dayPatrolCount = 0;
   }
 
   createAllKnight() {
@@ -24,6 +26,7 @@ export class World {
     for (let region of RegionData) {
       regions.push(new Region(region));
     }
+    regions[0].build(BuildingData.중앙청사);
     return regions;
   }
 
@@ -34,16 +37,39 @@ export class World {
   }
 
   processAction(action) {
+    if (action.typeDesc === "over") action.knights.map(name => this.knights[name].doAction(20));
+    else action.knights.map(name => this.knights[name].doAction());
+
+    switch (action.type) {
+      case "fight":
+        this.regions[action.regionNo].fight(this.knights);
+        break;
+      case "patrol":
+        this.regions[action.regionNo].patrol(this.knights, action);
+        this.dayPatrolCount++;
+        break;
+      case "build":
+        this.regions[action.regionNo].build();
+        break;
+      case "develop":
+        this.regions[action.regionNo].develop();
+        break;
+      default:
+        console.log("not vaild action");
+        return;
+    }
     this.actionHistory.push(action);
     this.curTime++;
   }
 
   processDay() {
+    this.dayPatrolCount = 0;
     this.dayRest();
   }
 
-  eatRamen(knightNames = []) {
+  eatRamen(knightNames) {
     knightNames.forEach(knightName => {
+      if (!knightName || !this.knights[knightName]) return;
       this.knights[knightName].eatRamen();
     });
   }
@@ -63,15 +89,29 @@ export class World {
   }
 
   getScience() {
-    this.regions.reduce((science, region) => {
-      // let cur = region.buildings.reduce((acc, building) => {
-      //   return aaa;
-      // });
-      // return science + cur;
-    });
+    return this.regions.reduce((totalsum, region) => {
+      let regionSum = region.buildings.reduce((sum, building) => {
+        return sum + building.science;
+      }, 0);
+      return totalsum + regionSum;
+    }, 0);
   }
 
-  getSpirit() {}
+  getSpirit() {
+    return this.regions.reduce((totalsum, region) => {
+      let regionSum = region.buildings.reduce((sum, building) => {
+        return sum + building.spirit;
+      }, 0);
+      return totalsum + regionSum;
+    }, 0);
+  }
 
-  getInfomation() {}
+  getInformation() {
+    return this.regions.reduce((totalsum, region) => {
+      let regionSum = region.buildings.reduce((sum, building) => {
+        return sum + building.information;
+      }, 0);
+      return totalsum + regionSum;
+    }, 0);
+  }
 }
