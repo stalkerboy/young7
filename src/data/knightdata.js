@@ -11,12 +11,13 @@ export const KnightData = {
 
     clearPatrolCount: 0,
     clearValue: [
-      { region: "seaLab", requiredFeeling: 20, addFeeling: 10 },
-      { region: "seaLab", requiredFeeling: 40, addFeeling: 10 },
-      { region: "seaLab", requiredFeeling: 60, addFeeling: 10 },
-      { region: "seaLab", requiredFeeling: 80, addFeeling: 10 },
-      { region: "seaLab", requiredFeeling: 100, addFeeling: 0 }
-    ]
+      { regionNo: 0, requiredFeeling: 20, addFeeling: 10 },
+      { regionNo: 0, requiredFeeling: 40, addFeeling: 10 },
+      { regionNo: 0, requiredFeeling: 60, addFeeling: 10 },
+      { regionNo: 0, requiredFeeling: 80, addFeeling: 10 },
+      { regionNo: 0, requiredFeeling: 100, addFeeling: 0 }
+    ],
+    sex: "female"
   },
   kaji: {
     name: "카지",
@@ -30,12 +31,13 @@ export const KnightData = {
 
     clearPatrolCount: 0,
     clearValue: [
-      { region: "seaLab", requiredFeeling: 20, addFeeling: 10 },
-      { region: "seaLab", requiredFeeling: 40, addFeeling: 10 },
-      { region: "seaLab", requiredFeeling: 60, addFeeling: 10 },
-      { region: "seaLab", requiredFeeling: 80, addFeeling: 10 },
-      { region: "seaLab", requiredFeeling: 100, addFeeling: 0 }
-    ]
+      { regionNo: 1, requiredFeeling: 10, addFeeling: 30 },
+      { regionNo: 1, requiredFeeling: 40, addFeeling: 20 },
+      { regionNo: 1, requiredFeeling: 60, addFeeling: 10 },
+      { regionNo: 1, requiredFeeling: 80, addFeeling: 10 },
+      { regionNo: 1, requiredFeeling: 100, addFeeling: 0 }
+    ],
+    sex: "female"
   },
   uryu: {
     name: "우류",
@@ -49,11 +51,12 @@ export const KnightData = {
 
     clearPatrolCount: 0,
     clearValue: [
-      { region: "seaLab", requiredFeeling: 20, addFeeling: 10 },
-      { region: "seaLab", requiredFeeling: 40, addFeeling: 10 },
-      { region: "seaLab", requiredFeeling: 60, addFeeling: 10 },
-      { region: "seaLab", requiredFeeling: 80, addFeeling: 10 },
-      { region: "seaLab", requiredFeeling: 100, addFeeling: 0 }
-    ]
+      { regionNo: 0, requiredFeeling: 20, addFeeling: 10 },
+      { regionNo: 0, requiredFeeling: 40, addFeeling: 10 },
+      { regionNo: 0, requiredFeeling: 60, addFeeling: 10 },
+      { regionNo: 0, requiredFeeling: 80, addFeeling: 10 },
+      { regionNo: 0, requiredFeeling: 100, addFeeling: 0 }
+    ],
+    sex: "male"
   }
 };

@@ -10,6 +10,7 @@ export class Knight {
     this.clearPatrolCount = knight.clearPatrolCount;
     this.clearValue = knight.clearValue;
     this.isClear = false;
+    this.sex = knight.sex;
   }
 
   eatRamen() {
@@ -26,11 +27,15 @@ export class Knight {
     }
   }
   doAction(fatigue = 5) {
-    this.fatigue -= fatigue;
-    if (this.fatigue < 0) {
-      this.fatigue = 0;
+    if (this.fatigue < fatigue) return false;
+    else {
+      this.fatigue -= fatigue;
+      if (this.fatigue < 0) {
+        this.fatigue = 0;
+      }
+      this.actionCount++;
+      return true;
     }
-    this.actionCount++;
   }
 
   feelup(feeling = 5) {
@@ -40,15 +45,17 @@ export class Knight {
     }
   }
 
-  clearPatrol(regionName) {
+  clearPatrol(action) {
     if (!this.isClear) {
       const clearValue = this.clearValue[this.clearPatrolCount];
-      if (regionName === clearValue.region && this.feeling > clearValue.requiredFeeling) {
+      if (action.regionNo === clearValue.regionNo && this.feeling >= clearValue.requiredFeeling) {
         this.feeling += clearValue.addFeeling;
         this.clearPatrolCount++;
         if (this.clearPatrolCount == this.clearValue.length) this.isClear = true;
+        return true;
       }
     }
+    return false;
   }
 
   printKnight() {

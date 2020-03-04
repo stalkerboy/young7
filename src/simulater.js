@@ -1,233 +1,68 @@
 import { World } from "./world";
 import { Action } from "./action";
-
+import lodash from "lodash";
 export class Simulater {
   constructor() {
     this.world = new World();
   }
 
   //dummySchedule = {regionNo:1, fight:6, patrolNormal:1, patrolKnight:1, develop:2}
-  dummyDay(dummySchedule) {
-    // for(let dummySchedule.fight){    }
+  dummyActions(dummySchedule) {
+    let actions = [];
+    Array.from(new Array(dummySchedule.fight)).map(() => {
+      actions.push(
+        new Action({
+          type: "fight",
+          regionNo: dummySchedule.regionNo,
+          knights: ["watari", "kaji", "uryu"]
+        })
+      );
+    });
+
+    Array.from(new Array(dummySchedule.patrolNormal)).map(() => {
+      actions.push(
+        new Action({
+          type: "patrol",
+          typeDesc: "normal",
+          regionNo: dummySchedule.regionNo,
+          knights: ["watari", "kaji", "uryu"]
+        })
+      );
+    });
+
+    Array.from(new Array(dummySchedule.patrolKnight)).map(() => {
+      actions.push(
+        new Action({
+          type: "patrol",
+          typeDesc: "knight",
+          target: "kaji",
+          regionNo: dummySchedule.regionNo,
+          knights: ["watari", "kaji", "uryu"]
+        })
+      );
+    });
+
+    Array.from(new Array(dummySchedule.develop)).map(() => {
+      actions.push(new Action({ type: "develop", regionNo: dummySchedule.regionNo, knights: ["watari", "kaji", "uryu"] }));
+    });
+
+    this.transact(actions);
   }
 
   start() {
     console.log("simulater started");
+    this.dummyActions({ regionNo: 1, fight: 6, patrolNormal: 1, patrolKnight: 2, develop: 2 });
 
-    //1day
-    this.processDay(
-      new Action({
-        type: "fight",
-        regionNo: "1",
-        knights: ["watari", "kaji", "uryu"]
-      })
-    );
-    this.processDay(
-      new Action({
-        type: "fight",
-        regionNo: "1",
-        knights: ["watari", "kaji", "uryu"]
-      })
-    );
-    this.processDay(
-      new Action({
-        type: "fight",
-        regionNo: "1",
-        knights: ["watari", "kaji", "uryu"]
-      })
-    );
-    this.processDay(
-      new Action({
-        type: "fight",
-        regionNo: "1",
-        knights: ["watari", "kaji", "uryu"]
-      })
-    );
-    this.processDay(
-      new Action({
-        type: "fight",
-        regionNo: "1",
-        knights: ["watari", "kaji", "uryu"]
-      })
-    );
-    this.processDay(
-      new Action({
-        type: "fight",
-        regionNo: "1",
-        knights: ["watari", "kaji", "uryu"]
-      })
-    );
-    this.processDay(
-      new Action({
-        type: "patrol",
-        typeDesc: "normal",
-        regionNo: "0",
-        knights: ["watari", "kaji", "uryu"]
-      })
-    );
-    this.processDay(
-      new Action({
-        type: "patrol",
-        typeDesc: "normal",
-        regionNo: "0",
-        knights: ["watari", "kaji", "uryu"]
-      })
-    );
-    this.processDay(
-      new Action({
-        type: "patrol",
-        typeDesc: "normal",
-        regionNo: "0",
-        knights: ["watari", "kaji", "uryu"]
-      })
-    );
-    this.processDay(
-      new Action({
-        type: "patrol",
-        typeDesc: "normal",
-        regionNo: "0",
-        knights: ["watari", "kaji", "uryu"]
-      })
-    );
-    this.processDay(
-      new Action({
-        type: "patrol",
-        typeDesc: "normal",
-        regionNo: "0",
-        knights: ["watari", "kaji", "uryu"]
-      })
-    );
-    this.processDay(
-      new Action({
-        type: "patrol",
-        typeDesc: "normal",
-        regionNo: "0",
-        knights: ["watari", "kaji", "uryu"]
-      })
-    );
+    // for (let name in this.world.knights) {
+    //   console.log(this.world.knights[name].printKnight());
+    // }
 
-    this.world.eatRamen(this.inputRamen());
-    this.world.processDay();
+    // this.world.regions.map(region => {
+    //   if (region.isClear) console.log(region.printRegion());
+    // });
 
-    //2day
-    this.processDay(
-      new Action({
-        type: "fight",
-        regionNo: "2",
-        knights: ["watari", "kaji", "uryu"]
-      })
-    );
-    this.processDay(
-      new Action({
-        type: "fight",
-        regionNo: "2",
-        knights: ["watari", "kaji", "uryu"]
-      })
-    );
-    this.processDay(
-      new Action({
-        type: "fight",
-        regionNo: "2",
-        knights: ["watari", "kaji", "uryu"]
-      })
-    );
-    this.processDay(
-      new Action({
-        type: "fight",
-        regionNo: "2",
-        knights: ["watari", "kaji", "uryu"]
-      })
-    );
-    this.processDay(
-      new Action({
-        type: "fight",
-        regionNo: "2",
-        knights: ["watari", "kaji", "uryu"]
-      })
-    );
-    this.processDay(
-      new Action({
-        type: "fight",
-        regionNo: "2",
-        knights: ["watari", "kaji", "uryu"]
-      })
-    );
-    this.processDay(
-      new Action({
-        type: "patrol",
-        typeDesc: "normal",
-        regionNo: "0",
-        knights: ["watari", "kaji", "uryu"]
-      })
-    );
-    this.processDay(
-      new Action({
-        type: "patrol",
-        typeDesc: "normal",
-        regionNo: "0",
-        knights: ["watari", "kaji", "uryu"]
-      })
-    );
-    this.processDay(
-      new Action({
-        type: "patrol",
-        typeDesc: "normal",
-        regionNo: "0",
-        knights: ["watari", "kaji", "uryu"]
-      })
-    );
-    this.processDay(
-      new Action({
-        type: "patrol",
-        typeDesc: "normal",
-        regionNo: "0",
-        knights: ["watari", "kaji", "uryu"]
-      })
-    );
-    this.processDay(
-      new Action({
-        type: "patrol",
-        typeDesc: "normal",
-        regionNo: "0",
-        knights: ["watari", "kaji", "uryu"]
-      })
-    );
-    this.processDay(
-      new Action({
-        type: "patrol",
-        typeDesc: "normal",
-        regionNo: "0",
-        knights: ["watari", "kaji", "uryu"]
-      })
-    );
-
-    this.world.eatRamen(this.inputRamen());
-    this.world.processDay();
-
-    //3day
-    this.processDay(new Action());
-
-    this.world.eatRamen(this.inputRamen());
-    this.world.processDay();
-
-    //4day
-    this.processDay(new Action());
-
-    this.world.eatRamen(this.inputRamen());
-    this.world.processDay();
-
-    //5day
-    this.processDay(new Action());
-
-    this.world.eatRamen(this.inputRamen());
-    this.world.processDay();
-
-    //6day
-    this.processDay(new Action());
-
-    this.world.eatRamen(this.inputRamen());
-    this.world.processDay();
-
+    // let action;
+    // let isValidAction;
     // for (let day = 0; day < 7; day++) {
     //   for (let hour = 9; hour < 21; hour++) {
     //     do {
@@ -242,13 +77,24 @@ export class Simulater {
     //   this.world.processDay();
     // }
 
-    // for (let name in this.world.knights) {
-    //   console.log(this.world.knights[name].printKnight());
-    // }
+    for (let name in this.world.knights) {
+      console.log(this.world.knights[name].printKnight());
+    }
 
     // this.world.regions.map(region => {
     //   if (region.isClear) console.log(region.printRegion());
     // });
+  }
+
+  transact(actions) {
+    if (actions.length > 12 - this.world.getHour()) return false;
+    let tempWorld = this.copyWorld();
+    let isVaild = actions.map(action => tempWorld.processAction(action)).reduce((rtn, check) => rtn && check, true);
+
+    if (isVaild) {
+      actions.map(action => this.world.processAction(action)).reduce((rtn, check) => rtn && check, true);
+      return true;
+    } else return false;
   }
 
   inputAction() {
@@ -277,5 +123,11 @@ export class Simulater {
   inputRamen() {
     let knights = ["watari", "kaji", "uryu"];
     return knights;
+  }
+
+  copyWorld() {
+    // return JSON.parse(JSON.stringify(this.world));
+    return lodash.cloneDeep(this.world);
+    // return this.world.copyWorld();
   }
 }

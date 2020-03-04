@@ -1,6 +1,7 @@
 import { KnightData, RegionData, BuildingData } from "./data";
 import { Knight } from "./knight";
 import { Region } from "./region";
+import { Building } from "./building";
 
 export class World {
   constructor(knights) {
@@ -26,40 +27,38 @@ export class World {
     for (let region of RegionData) {
       regions.push(new Region(region));
     }
-    regions[0].build(BuildingData.중앙청사);
+    regions[0].build(new Building(BuildingData.중앙청사));
     return regions;
   }
 
-  checkAction(action) {
-    const region = this.regions[action.regionNo];
-    // return region.checkAction(action);
-    return true;
-  }
-
   processAction(action) {
-    if (action.typeDesc === "over") action.knights.map(name => this.knights[name].doAction(20));
-    else action.knights.map(name => this.knights[name].doAction());
+    let fatigueDown = 5;
+    if (action.typeDesc === "over") fatigueDown = 20;
+    let isVaild = action.knights.map(name => this.knights[name].doAction(fatigueDown)).reduce((rtn, vaildCheck) => rtn && vaildCheck, true);
+
+    if (!isVaild) return false;
 
     switch (action.type) {
       case "fight":
-        this.regions[action.regionNo].fight(this.knights);
+        isVaild = this.regions[action.regionNo].fight(this.knights, action);
         break;
       case "patrol":
-        this.regions[action.regionNo].patrol(this.knights, action);
+        isVaild = this.regions[action.regionNo].patrol(this.knights, action, this.dayPatrolCount);
         this.dayPatrolCount++;
         break;
       case "build":
-        this.regions[action.regionNo].build();
+        isVaild = this.regions[action.regionNo].build(action.typeDesc);
         break;
       case "develop":
-        this.regions[action.regionNo].develop();
+        isVaild = this.regions[action.regionNo].develop();
         break;
       default:
         console.log("not vaild action");
-        return;
+        return false;
     }
     this.actionHistory.push(action);
     this.curTime++;
+    return isVaild;
   }
 
   processDay() {
@@ -68,16 +67,16 @@ export class World {
   }
 
   eatRamen(knightNames) {
-    knightNames.forEach(knightName => {
+    knightNames.map(knightName => {
       if (!knightName || !this.knights[knightName]) return;
       this.knights[knightName].eatRamen();
     });
   }
 
   dayRest() {
-    this.knights.forEach(knight => {
-      knight.dayRest();
-    });
+    for (let name in this.knights) {
+      this.knights[name].dayRest();
+    }
   }
 
   getHour() {
