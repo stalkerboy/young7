@@ -9,7 +9,7 @@ export class Simulater {
   //dummySchedule = {regionNo:1, fight:6, patrolNormal:1, patrolKnight:1, develop:2}
   dummyActions(dummySchedule) {
     let actions = [];
-    Array.from(new Array(dummySchedule.fight)).map(() => {
+    Array.from(new Array(dummySchedule.fight ? dummySchedule.fight : 0)).map(() => {
       actions.push(
         new Action({
           type: "fight",
@@ -19,7 +19,7 @@ export class Simulater {
       );
     });
 
-    Array.from(new Array(dummySchedule.patrolNormal)).map(() => {
+    Array.from(new Array(dummySchedule.patrolNormal ? dummySchedule.patrolNormal : 0)).map(() => {
       actions.push(
         new Action({
           type: "patrol",
@@ -30,7 +30,7 @@ export class Simulater {
       );
     });
 
-    Array.from(new Array(dummySchedule.patrolKnight)).map(() => {
+    Array.from(new Array(dummySchedule.patrolKnight ? dummySchedule.patrolKnight : 0)).map(() => {
       actions.push(
         new Action({
           type: "patrol",
@@ -42,7 +42,29 @@ export class Simulater {
       );
     });
 
-    Array.from(new Array(dummySchedule.develop)).map(() => {
+    Array.from(new Array(dummySchedule.build공정소 ? dummySchedule.build공정소 : 0)).map(() => {
+      actions.push(
+        new Action({
+          type: "build",
+          typeDesc: "공정소",
+          regionNo: dummySchedule.regionNo,
+          knights: ["watari", "kaji", "uryu"]
+        })
+      );
+    });
+
+    Array.from(new Array(dummySchedule.build연구소 ? dummySchedule.build연구소 : 0)).map(() => {
+      actions.push(
+        new Action({
+          type: "build",
+          typeDesc: "연구소",
+          regionNo: dummySchedule.regionNo,
+          knights: ["watari", "kaji", "uryu"]
+        })
+      );
+    });
+
+    Array.from(new Array(dummySchedule.develop ? dummySchedule.develop : 0)).map(() => {
       actions.push(new Action({ type: "develop", regionNo: dummySchedule.regionNo, knights: ["watari", "kaji", "uryu"] }));
     });
 
@@ -51,7 +73,26 @@ export class Simulater {
 
   start() {
     console.log("simulater started");
-    this.dummyActions({ regionNo: 1, fight: 6, patrolNormal: 1, patrolKnight: 2, develop: 2 });
+    this.dummyActions({ regionNo: 1, fight: 6, develop: 3 });
+    // this.dummyActions({ regionNo: 1, build연구소: 5 });
+    this.transact([
+      { type: "build", typeDesc: "지하연구소", knights: ["watari", "kaji", "uryu"], regionNo: 1 },
+      { type: "build", typeDesc: "공공도서관", knights: ["watari", "kaji", "uryu"], regionNo: 1 },
+      { type: "build", typeDesc: "지하연구소", knights: ["watari", "kaji", "uryu"], regionNo: 1 },
+      { type: "build", typeDesc: "시립연구센터", knights: ["watari", "kaji", "uryu"], regionNo: 1 }
+    ]);
+
+    // this.dummyActions({ regionNo: 1, fight: 6, patrolNormal: 1, patrolKnight: 2, develop: 3 });
+
+    // this.world.eatRamen(this.inputRamen());
+    // this.world.processDay();
+
+    // this.dummyActions({ regionNo: 1, build연구소: 5 });
+    // this.transact([
+    //   { type: "build", typeDesc: "대형연구소", knights: ["watari", "kaji", "uryu"], regionNo: 1 },
+    //   { type: "build", typeDesc: "지하연구소", knights: ["watari", "kaji", "uryu"], regionNo: 0 },
+    //   { type: "build", typeDesc: "시립연구센터", knights: ["watari", "kaji", "uryu"], regionNo: 1 }
+    // ]);
 
     // for (let name in this.world.knights) {
     //   console.log(this.world.knights[name].printKnight());
@@ -77,17 +118,21 @@ export class Simulater {
     //   this.world.processDay();
     // }
 
-    for (let name in this.world.knights) {
-      console.log(this.world.knights[name].printKnight());
-    }
+    // for (let name in this.world.knights) {
+    //   console.log(this.world.knights[name].printKnight());
+    // }
 
-    // this.world.regions.map(region => {
-    //   if (region.isClear) console.log(region.printRegion());
-    // });
+    this.world.regions.map(region => {
+      if (region.isClear) console.log(region.printRegion());
+    });
+
+    console.log("spirit : ", this.world.getSpirit());
+    console.log("science : ", this.world.getScience());
+    console.log("information : ", this.world.getInformation());
   }
 
   transact(actions) {
-    if (actions.length > 12 - this.world.getHour()) return false;
+    // if (actions.length > 12 - this.world.getHour()) return false;
     let tempWorld = this.copyWorld();
     let isVaild = actions.map(action => tempWorld.processAction(action)).reduce((rtn, check) => rtn && check, true);
 

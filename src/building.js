@@ -2,8 +2,8 @@ export class Building {
   constructor(building) {
     this.name = building.name;
 
-    this.buildDemand = building.buildDemand ? building.buildDemand : 999;
-    this.scienceDemand = building.scienceDemand ? building.scienceDemand : 999;
+    this.requiredBuild = building.requiredBuild ? building.requiredBuild : 999;
+    this.requiredScience = building.requiredScience ? building.requiredScience : 999;
 
     this.spirit = building.spirit ? building.spirit : 0;
     this.science = building.science ? building.science : 0;
@@ -19,7 +19,7 @@ export class Building {
 
     this.patrolPlus = building.patrolPlus ? building.patrolPlus : 0;
     this.buildPlus = building.buildPlus ? building.buildPlus : 0;
-    this.develPlus = building.develPlus ? building.develPlus : 0;
+    this.developPlus = building.developPlus ? building.developPlus : 0;
 
     this.malefeelingPlus = building.malefeelingPlus ? building.malefeelingPlus : 0;
     this.femalefeelingPlus = building.femalefeelingPlus ? building.femalefeelingPlus : 0;

@@ -5,7 +5,7 @@ export const RegionData = [
     buildings: [],
     patrolCount: 0,
     battleCount: 0,
-    requiredMental: 0,
+    requiredSpirit: 0,
     isClear: true
   },
 
@@ -15,7 +15,7 @@ export const RegionData = [
     buildings: [],
     patrolCount: 0,
     battleCount: 0,
-    requiredMental: 5,
+    requiredSpirit: 5,
     isClear: false
   },
 
@@ -25,7 +25,7 @@ export const RegionData = [
     buildings: [],
     patrolCount: 0,
     battleCount: 0,
-    requiredMental: 10,
+    requiredSpirit: 10,
     isClear: false
   },
 
@@ -35,7 +35,7 @@ export const RegionData = [
     buildings: [],
     patrolCount: 0,
     battleCount: 0,
-    requiredMental: 10,
+    requiredSpirit: 10,
     isClear: false
   },
 
@@ -45,7 +45,7 @@ export const RegionData = [
     buildings: [],
     patrolCount: 0,
     battleCount: 0,
-    requiredMental: 20,
+    requiredSpirit: 20,
     isClear: false
   },
 
@@ -55,7 +55,7 @@ export const RegionData = [
     buildings: [],
     patrolCount: 0,
     battleCount: 0,
-    requiredMental: 50,
+    requiredSpirit: 50,
     isClear: false
   },
 
@@ -65,7 +65,7 @@ export const RegionData = [
     buildings: [],
     patrolCount: 0,
     battleCount: 0,
-    requiredMental: 100,
+    requiredSpirit: 100,
     isClear: false
   },
 
@@ -75,7 +75,7 @@ export const RegionData = [
     buildings: [],
     patrolCount: 0,
     battleCount: 0,
-    requiredMental: 150,
+    requiredSpirit: 150,
     isClear: false
   }
 ];

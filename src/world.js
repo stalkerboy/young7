@@ -27,30 +27,43 @@ export class World {
     for (let region of RegionData) {
       regions.push(new Region(region));
     }
-    regions[0].build(new Building(BuildingData.중앙청사));
+    regions[0].buildings.push(new Building(BuildingData.중앙청기지));
     return regions;
   }
 
   processAction(action) {
     let fatigueDown = 5;
-    if (action.typeDesc === "over") fatigueDown = 20;
+    // if (action.typeDesc === "over") fatigueDown = 20;
+
+    if (action.type === "fight" && this.getSpirit() < this.regions[action.regionNo].requiredSpirit) fatigueDown = 20;
+    // let isVaild = action.knights.map(name => this.knights[name].doAction(fatigueDown)).reduce((rtn, vaildCheck) => rtn && vaildCheck, true);
     let isVaild = action.knights.map(name => this.knights[name].doAction(fatigueDown)).reduce((rtn, vaildCheck) => rtn && vaildCheck, true);
 
     if (!isVaild) return false;
+    let data = { knights: this.knights, action, dayPatrolCount: this.dayPatrolCount };
 
     switch (action.type) {
       case "fight":
-        isVaild = this.regions[action.regionNo].fight(this.knights, action);
+        isVaild = this.regions[action.regionNo].fight(data);
         break;
       case "patrol":
-        isVaild = this.regions[action.regionNo].patrol(this.knights, action, this.dayPatrolCount);
+        this.regions.map(region => {
+          const destroyBuilding = region.buildings.filter(building => building.buildDestroyPatrol);
+          if (destroyBuilding.length) region.destroyBuilding(destroyBuilding[0].name);
+        });
+        isVaild = this.regions[action.regionNo].patrol(data);
         this.dayPatrolCount++;
         break;
       case "build":
-        isVaild = this.regions[action.regionNo].build(action.typeDesc);
+        this.regions.map(region => {
+          const destroyBuilding = region.buildings.filter(building => building.buildDestroyPlan);
+          if (destroyBuilding.length) region.destroyBuilding(destroyBuilding[0].name);
+        });
+        data.building = new Building(BuildingData[action.typeDesc]);
+        isVaild = this.regions[action.regionNo].build(data);
         break;
       case "develop":
-        isVaild = this.regions[action.regionNo].develop();
+        isVaild = this.regions[action.regionNo].develop(data);
         break;
       default:
         console.log("not vaild action");
@@ -88,29 +101,14 @@ export class World {
   }
 
   getScience() {
-    return this.regions.reduce((totalsum, region) => {
-      let regionSum = region.buildings.reduce((sum, building) => {
-        return sum + building.science;
-      }, 0);
-      return totalsum + regionSum;
-    }, 0);
+    return this.regions.reduce((acc, region) => acc + region.science, 0);
   }
 
   getSpirit() {
-    return this.regions.reduce((totalsum, region) => {
-      let regionSum = region.buildings.reduce((sum, building) => {
-        return sum + building.spirit;
-      }, 0);
-      return totalsum + regionSum;
-    }, 0);
+    return this.regions.reduce((acc, region) => acc + region.spirit, 0);
   }
 
   getInformation() {
-    return this.regions.reduce((totalsum, region) => {
-      let regionSum = region.buildings.reduce((sum, building) => {
-        return sum + building.information;
-      }, 0);
-      return totalsum + regionSum;
-    }, 0);
+    return this.regions.reduce((acc, region) => acc + region.information, 0);
   }
 }

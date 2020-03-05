@@ -6,7 +6,7 @@ export const KnightData = {
     actionCount: 0,
 
     build: 10,
-    patrol: 4,
+    patrol: 9,
     develop: 4,
 
     clearPatrolCount: 0,
@@ -25,8 +25,8 @@ export const KnightData = {
     fatigue: 100,
     actionCount: 0,
 
-    build: 3,
-    patrol: 4,
+    build: 13,
+    patrol: 10,
     develop: 4,
 
     clearPatrolCount: 0,
@@ -45,8 +45,8 @@ export const KnightData = {
     fatigue: 100,
     actionCount: 0,
 
-    build: 1,
-    patrol: 2,
+    build: 11,
+    patrol: 12,
     develop: 14,
 
     clearPatrolCount: 0,
