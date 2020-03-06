@@ -1,9 +1,6 @@
 export const KnightData = {
-  watari: {
+  와타리: {
     name: "와타리",
-    feeling: 0,
-    fatigue: 100,
-    actionCount: 0,
 
     build: 10,
     patrol: 9,
@@ -19,12 +16,8 @@ export const KnightData = {
     ],
     sex: "female"
   },
-  kaji: {
+  카지: {
     name: "카지",
-    feeling: 0,
-    fatigue: 100,
-    actionCount: 0,
-
     build: 13,
     patrol: 10,
     develop: 4,
@@ -39,11 +32,8 @@ export const KnightData = {
     ],
     sex: "female"
   },
-  uryu: {
+  우류: {
     name: "우류",
-    feeling: 0,
-    fatigue: 100,
-    actionCount: 0,
 
     build: 11,
     patrol: 12,

@@ -13,9 +13,9 @@ export class Building {
     this.sciencePlus = building.sciencePlus ? building.sciencePlus : 0;
     this.informationPlus = building.informationPlus ? building.informationPlus : 0;
 
-    this.spiritMulti = building.spiritMulti ? building.spiritMulti : "1";
-    this.scienceMulti = building.scienceMulti ? building.scienceMulti : "1";
-    this.informationMulti = building.informationMulti ? building.informationMulti : "1";
+    this.spiritMulti = building.spiritMulti ? building.spiritMulti : 1;
+    this.scienceMulti = building.scienceMulti ? building.scienceMulti : 1;
+    this.informationMulti = building.informationMulti ? building.informationMulti : 1;
 
     this.patrolPlus = building.patrolPlus ? building.patrolPlus : 0;
     this.buildPlus = building.buildPlus ? building.buildPlus : 0;
@@ -24,8 +24,7 @@ export class Building {
     this.malefeelingPlus = building.malefeelingPlus ? building.malefeelingPlus : 0;
     this.femalefeelingPlus = building.femalefeelingPlus ? building.femalefeelingPlus : 0;
 
-    this.areaLimit = building.areaLimit ? building.areaLimit : -1;
-    this.cityLimit = building.cityLimit ? building.cityLimit : -1;
+    this.limit = building.limit ? building.limit : {};
 
     this.buildDestroyPlan = building.buildDestroyPlan ? building.buildDestroyPlan : false;
     this.patrolDestroyPlan = building.patrolDestroyPlan ? building.patrolDestroyPlan : false;

@@ -12,6 +12,7 @@ export class World {
     this.regions = this.createAllRegion();
 
     this.dayPatrolCount = 0;
+    this.worldLimitBuilding = {};
   }
 
   createAllKnight() {
@@ -60,6 +61,23 @@ export class World {
           if (destroyBuilding.length) region.destroyBuilding(destroyBuilding[0].name);
         });
         data.building = new Building(BuildingData[action.typeDesc]);
+
+        if (data.building.limit.world) {
+          this.worldLimitBuilding[data.building.name] = this.worldLimitBuilding[data.building.name] ? this.worldLimitBuilding[data.building.name] : 0;
+          if (this.worldLimitBuilding[data.building.name] < data.building.limit.world) {
+            this.worldLimitBuilding[data.building.name]++;
+          } else return false;
+        } else if (data.building.limit.region) {
+          this.regions[action.regionNo].regionLimitBuilding[data.building.name] = this.regions[action.regionNo].regionLimitBuilding[data.building.name]
+            ? this.regions[action.regionNo].regionLimitBuilding[data.building.name]
+            : 0;
+          if (this.regions[action.regionNo].regionLimitBuilding[data.building.name] < data.building.limit.region) {
+            this.regions[action.regionNo].regionLimitBuilding[data.building.name]++;
+          } else return false;
+        } else {
+          if (Object.keys(data.building.limit).length) return false;
+        }
+
         isVaild = this.regions[action.regionNo].build(data);
         break;
       case "develop":

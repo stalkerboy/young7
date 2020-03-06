@@ -14,7 +14,7 @@ export class Simulater {
         new Action({
           type: "fight",
           regionNo: dummySchedule.regionNo,
-          knights: ["watari", "kaji", "uryu"]
+          knights: ["와타리", "카지", "우류"]
         })
       );
     });
@@ -25,7 +25,7 @@ export class Simulater {
           type: "patrol",
           typeDesc: "normal",
           regionNo: dummySchedule.regionNo,
-          knights: ["watari", "kaji", "uryu"]
+          knights: ["와타리", "카지", "우류"]
         })
       );
     });
@@ -35,9 +35,9 @@ export class Simulater {
         new Action({
           type: "patrol",
           typeDesc: "knight",
-          target: "kaji",
+          target: "카지",
           regionNo: dummySchedule.regionNo,
-          knights: ["watari", "kaji", "uryu"]
+          knights: ["와타리", "카지", "우류"]
         })
       );
     });
@@ -48,7 +48,7 @@ export class Simulater {
           type: "build",
           typeDesc: "공정소",
           regionNo: dummySchedule.regionNo,
-          knights: ["watari", "kaji", "uryu"]
+          knights: ["와타리", "카지", "우류"]
         })
       );
     });
@@ -59,13 +59,13 @@ export class Simulater {
           type: "build",
           typeDesc: "연구소",
           regionNo: dummySchedule.regionNo,
-          knights: ["watari", "kaji", "uryu"]
+          knights: ["와타리", "카지", "우류"]
         })
       );
     });
 
     Array.from(new Array(dummySchedule.develop ? dummySchedule.develop : 0)).map(() => {
-      actions.push(new Action({ type: "develop", regionNo: dummySchedule.regionNo, knights: ["watari", "kaji", "uryu"] }));
+      actions.push(new Action({ type: "develop", regionNo: dummySchedule.regionNo, knights: ["와타리", "카지", "우류"] }));
     });
 
     this.transact(actions);
@@ -73,13 +73,36 @@ export class Simulater {
 
   start() {
     console.log("simulater started");
-    this.dummyActions({ regionNo: 1, fight: 6, develop: 3 });
-    // this.dummyActions({ regionNo: 1, build연구소: 5 });
+    this.dummyActions({ regionNo: 1, fight: 6 });
     this.transact([
-      { type: "build", typeDesc: "지하연구소", knights: ["watari", "kaji", "uryu"], regionNo: 1 },
-      { type: "build", typeDesc: "공공도서관", knights: ["watari", "kaji", "uryu"], regionNo: 1 },
-      { type: "build", typeDesc: "지하연구소", knights: ["watari", "kaji", "uryu"], regionNo: 1 },
-      { type: "build", typeDesc: "시립연구센터", knights: ["watari", "kaji", "uryu"], regionNo: 1 }
+      { type: "build", typeDesc: "지하연구소", knights: ["와타리", "카지", "우류"], regionNo: 1 },
+      { type: "build", typeDesc: "공공도서관", knights: ["와타리", "카지", "우류"], regionNo: 1 },
+      { type: "build", typeDesc: "지하연구소", knights: ["와타리", "카지", "우류"], regionNo: 1 },
+      { type: "build", typeDesc: "시립연구센터", knights: ["와타리", "카지", "우류"], regionNo: 1 },
+      { type: "build", typeDesc: "구립연구센터", knights: ["와타리", "카지", "우류"], regionNo: 1 },
+      { type: "build", typeDesc: "쇼핑센터", knights: ["와타리", "카지", "우류"], regionNo: 1 }
+    ]);
+
+    this.world.eatRamen(this.inputRamen());
+    this.world.eatRamen(this.inputRamen());
+    this.world.eatRamen(this.inputRamen());
+    this.world.eatRamen(this.inputRamen());
+    this.transact([
+      { type: "patrol", typeDesc: "normal", knights: ["와타리", "카지", "우류"], regionNo: 1 },
+      { type: "patrol", typeDesc: "normal", knights: ["와타리", "카지", "우류"], regionNo: 1 },
+      { type: "patrol", typeDesc: "normal", knights: ["와타리", "카지", "우류"], regionNo: 1 },
+      { type: "patrol", typeDesc: "normal", knights: ["와타리", "카지", "우류"], regionNo: 1 },
+      { type: "patrol", typeDesc: "normal", knights: ["와타리", "카지", "우류"], regionNo: 1 },
+      { type: "patrol", typeDesc: "normal", knights: ["와타리", "카지", "우류"], regionNo: 1 },
+      { type: "patrol", typeDesc: "normal", knights: ["와타리", "카지", "우류"], regionNo: 1 }
+    ]);
+    this.world.processDay();
+    this.transact([
+      { type: "patrol", typeDesc: "knight", target: "카지", knights: ["와타리", "카지", "우류"], regionNo: 1 },
+      { type: "patrol", typeDesc: "knight", target: "카지", knights: ["와타리", "카지", "우류"], regionNo: 1 },
+      { type: "patrol", typeDesc: "knight", target: "카지", knights: ["와타리", "카지", "우류"], regionNo: 1 },
+      { type: "patrol", typeDesc: "knight", target: "카지", knights: ["와타리", "카지", "우류"], regionNo: 1 },
+      { type: "patrol", typeDesc: "knight", target: "카지", knights: ["와타리", "카지", "우류"], regionNo: 1 }
     ]);
 
     // this.dummyActions({ regionNo: 1, fight: 6, patrolNormal: 1, patrolKnight: 2, develop: 3 });
@@ -89,9 +112,9 @@ export class Simulater {
 
     // this.dummyActions({ regionNo: 1, build연구소: 5 });
     // this.transact([
-    //   { type: "build", typeDesc: "대형연구소", knights: ["watari", "kaji", "uryu"], regionNo: 1 },
-    //   { type: "build", typeDesc: "지하연구소", knights: ["watari", "kaji", "uryu"], regionNo: 0 },
-    //   { type: "build", typeDesc: "시립연구센터", knights: ["watari", "kaji", "uryu"], regionNo: 1 }
+    //   { type: "build", typeDesc: "대형연구소", knights: ["와타리", "카지", "우류"], regionNo: 1 },
+    //   { type: "build", typeDesc: "지하연구소", knights: ["와타리", "카지", "우류"], regionNo: 0 },
+    //   { type: "build", typeDesc: "시립연구센터", knights: ["와타리", "카지", "우류"], regionNo: 1 }
     // ]);
 
     // for (let name in this.world.knights) {
@@ -118,13 +141,13 @@ export class Simulater {
     //   this.world.processDay();
     // }
 
-    // for (let name in this.world.knights) {
-    //   console.log(this.world.knights[name].printKnight());
-    // }
+    for (let name in this.world.knights) {
+      console.log(this.world.knights[name].printKnight());
+    }
 
-    this.world.regions.map(region => {
-      if (region.isClear) console.log(region.printRegion());
-    });
+    // this.world.regions.map(region => {
+    //   if (region.isClear) console.log(region.printRegion());
+    // });
 
     console.log("spirit : ", this.world.getSpirit());
     console.log("science : ", this.world.getScience());
@@ -146,27 +169,27 @@ export class Simulater {
     // let action = {
     //   type: "fight",
     //   regionNo: "1",
-    //   knights: ["watari", "kaji", "uryu"]
+    //   knights: ["와타리", "카지", "우류"]
     // };
     // let action = {
     //   type: "patrol",
     //   typeDesc: "knight",
-    //   target: "kaji",
+    //   target: "카지",
     //   regionNo: "0",
-    //   knights: ["watari", "kaji", "uryu"]
+    //   knights: ["와타리", "카지", "우류"]
     // };
     let action = {
       type: "patrol",
       typeDesc: "normal",
       regionNo: "0",
-      knights: ["watari", "kaji", "uryu"]
+      knights: ["와타리", "카지", "우류"]
     };
 
     return action;
   }
 
   inputRamen() {
-    let knights = ["watari", "kaji", "uryu"];
+    let knights = ["와타리", "카지", "우류"];
     return knights;
   }
 

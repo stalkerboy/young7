@@ -7,8 +7,7 @@ export class Region {
     this.fightCount = region.fightCount ? region.fightCount : 0;
     this.requiredSpirit = region.requiredSpirit;
     this.isClear = region.isClear;
-    this.areaLimit = {};
-    this.worldLimit = {};
+    this.regionLimitBuilding = {};
   }
 
   fight(data) {
@@ -49,6 +48,8 @@ export class Region {
         isVaild = knights[action.target].clearPatrol(action);
         break;
       case "scena":
+        break;
+      case "score":
         break;
       default:
         return false;
@@ -98,18 +99,19 @@ export class Region {
   }
 
   get science() {
-    const multi = this.buildings.reduce((acc, building) => building.scienceMulti, 1);
+    const multi = this.buildings.reduce((acc, building) => acc * building.scienceMulti, 1);
+
     // const plus = this.buildings.reduce((acc, building) => building.sciencePlus, 0);
     return parseInt(this.buildings.reduce((acc, building) => acc + building.science * multi, 0) + 0.5);
   }
 
   get spirit() {
-    const multi = this.buildings.reduce((acc, building) => building.spiritMulti, 1);
+    const multi = this.buildings.reduce((acc, building) => acc * building.spiritMulti, 1);
     return parseInt(this.buildings.reduce((acc, building) => acc + building.spirit * multi, 0) + 0.5);
   }
 
   get information() {
-    const multi = this.buildings.reduce((acc, building) => building.informationMulti, 1);
+    const multi = this.buildings.reduce((acc, building) => acc * building.informationMulti, 1);
     return parseInt(this.buildings.reduce((acc, building) => acc + building.information * multi, 0) + 0.5);
   }
 }

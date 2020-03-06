@@ -1,8 +1,8 @@
 export class Knight {
   constructor(knight) {
     this.name = knight.name;
-    this.feeling = knight.feeling;
-    this.fatigue = knight.fatigue;
+    this.feeling = knight.feeling ? knight.feeling : 0;
+    this.fatigue = knight.fatigue ? knight.fatigue : 100;
     this.actionCount = knight.actionCount ? knight.actionCount : 0;
     this.build = knight.build;
     this.patrol = knight.patrol;
@@ -51,6 +51,9 @@ export class Knight {
       if (action.regionNo === clearValue.regionNo && this.feeling >= clearValue.requiredFeeling) {
         this.feeling += clearValue.addFeeling;
         this.clearPatrolCount++;
+        if (this.feeling > 100) {
+          this.feeling = 100;
+        }
         if (this.clearPatrolCount == this.clearValue.length) this.isClear = true;
         return true;
       }
