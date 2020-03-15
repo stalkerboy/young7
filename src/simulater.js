@@ -10,7 +10,7 @@ export class Simulater {
   dummyActions(dummySchedule) {
     let actions = [];
     Array.from(new Array(dummySchedule.fight ? dummySchedule.fight : 0)).map(() => {
-      actions.push(
+      return actions.push(
         new Action({
           type: "fight",
           regionNo: dummySchedule.regionNo,
@@ -20,7 +20,7 @@ export class Simulater {
     });
 
     Array.from(new Array(dummySchedule.patrolNormal ? dummySchedule.patrolNormal : 0)).map(() => {
-      actions.push(
+      return actions.push(
         new Action({
           type: "patrol",
           typeDesc: "normal",
@@ -31,7 +31,7 @@ export class Simulater {
     });
 
     Array.from(new Array(dummySchedule.patrolKnight ? dummySchedule.patrolKnight : 0)).map(() => {
-      actions.push(
+      return actions.push(
         new Action({
           type: "patrol",
           typeDesc: "knight",
@@ -43,7 +43,7 @@ export class Simulater {
     });
 
     Array.from(new Array(dummySchedule.build공정소 ? dummySchedule.build공정소 : 0)).map(() => {
-      actions.push(
+      return actions.push(
         new Action({
           type: "build",
           typeDesc: "공정소",
@@ -54,7 +54,7 @@ export class Simulater {
     });
 
     Array.from(new Array(dummySchedule.build연구소 ? dummySchedule.build연구소 : 0)).map(() => {
-      actions.push(
+      return actions.push(
         new Action({
           type: "build",
           typeDesc: "연구소",
@@ -65,7 +65,7 @@ export class Simulater {
     });
 
     Array.from(new Array(dummySchedule.develop ? dummySchedule.develop : 0)).map(() => {
-      actions.push(new Action({ type: "develop", regionNo: dummySchedule.regionNo, knights: ["와타리", "카지", "우류"] }));
+      return actions.push(new Action({ type: "develop", regionNo: dummySchedule.regionNo, knights: ["와타리", "카지", "우류"] }));
     });
 
     this.transact(actions);
@@ -83,26 +83,31 @@ export class Simulater {
       { type: "build", typeDesc: "쇼핑센터", knights: ["와타리", "카지", "우류"], regionNo: 1 }
     ]);
 
-    this.world.eatRamen(this.inputRamen());
-    this.world.eatRamen(this.inputRamen());
-    this.world.eatRamen(this.inputRamen());
-    this.world.eatRamen(this.inputRamen());
+    // this.world.eatRamen(this.inputRamen());
+    // this.world.eatRamen(this.inputRamen());
+    // this.world.eatRamen(this.inputRamen());
+    // this.world.eatRamen(this.inputRamen());
+    // this.transact([
+    //   { type: "patrol", typeDesc: "normal", knights: ["와타리", "카지", "우류"], regionNo: 1 },
+    //   { type: "patrol", typeDesc: "normal", knights: ["와타리", "카지", "우류"], regionNo: 1 },
+    //   { type: "patrol", typeDesc: "normal", knights: ["와타리", "카지", "우류"], regionNo: 1 },
+    //   { type: "patrol", typeDesc: "normal", knights: ["와타리", "카지", "우류"], regionNo: 1 },
+    //   { type: "patrol", typeDesc: "normal", knights: ["와타리", "카지", "우류"], regionNo: 1 },
+    //   { type: "patrol", typeDesc: "normal", knights: ["와타리", "카지", "우류"], regionNo: 1 },
+    //   { type: "patrol", typeDesc: "normal", knights: ["와타리", "카지", "우류"], regionNo: 1 }
+    // ]);
+    // this.world.processDay();
+    // this.transact([
+    //   { type: "patrol", typeDesc: "knight", target: "카지", knights: ["와타리", "카지", "우류"], regionNo: 1 },
+    //   { type: "patrol", typeDesc: "knight", target: "카지", knights: ["와타리", "카지", "우류"], regionNo: 1 },
+    //   { type: "patrol", typeDesc: "knight", target: "카지", knights: ["와타리", "카지", "우류"], regionNo: 1 },
+    //   { type: "patrol", typeDesc: "knight", target: "카지", knights: ["와타리", "카지", "우류"], regionNo: 1 },
+    //   { type: "patrol", typeDesc: "knight", target: "카지", knights: ["와타리", "카지", "우류"], regionNo: 1 }
+    // ]);
+
     this.transact([
-      { type: "patrol", typeDesc: "normal", knights: ["와타리", "카지", "우류"], regionNo: 1 },
-      { type: "patrol", typeDesc: "normal", knights: ["와타리", "카지", "우류"], regionNo: 1 },
-      { type: "patrol", typeDesc: "normal", knights: ["와타리", "카지", "우류"], regionNo: 1 },
-      { type: "patrol", typeDesc: "normal", knights: ["와타리", "카지", "우류"], regionNo: 1 },
-      { type: "patrol", typeDesc: "normal", knights: ["와타리", "카지", "우류"], regionNo: 1 },
-      { type: "patrol", typeDesc: "normal", knights: ["와타리", "카지", "우류"], regionNo: 1 },
-      { type: "patrol", typeDesc: "normal", knights: ["와타리", "카지", "우류"], regionNo: 1 }
-    ]);
-    this.world.processDay();
-    this.transact([
-      { type: "patrol", typeDesc: "knight", target: "카지", knights: ["와타리", "카지", "우류"], regionNo: 1 },
-      { type: "patrol", typeDesc: "knight", target: "카지", knights: ["와타리", "카지", "우류"], regionNo: 1 },
-      { type: "patrol", typeDesc: "knight", target: "카지", knights: ["와타리", "카지", "우류"], regionNo: 1 },
-      { type: "patrol", typeDesc: "knight", target: "카지", knights: ["와타리", "카지", "우류"], regionNo: 1 },
-      { type: "patrol", typeDesc: "knight", target: "카지", knights: ["와타리", "카지", "우류"], regionNo: 1 }
+      { type: "build", typeDesc: "불꽃축제", knights: ["와타리", "카지", "우류"], regionNo: 0 },
+      { type: "patrol", typeDesc: "normal", knights: ["와타리", "카지", "우류"], regionNo: 0 }
     ]);
 
     // this.dummyActions({ regionNo: 1, fight: 6, patrolNormal: 1, patrolKnight: 2, develop: 3 });
@@ -145,9 +150,9 @@ export class Simulater {
       console.log(this.world.knights[name].printKnight());
     }
 
-    // this.world.regions.map(region => {
-    //   if (region.isClear) console.log(region.printRegion());
-    // });
+    this.world.regions.map(region => {
+      if (region.isClear) console.log(region.printRegion());
+    });
 
     console.log("spirit : ", this.world.getSpirit());
     console.log("science : ", this.world.getScience());

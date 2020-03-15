@@ -26,6 +26,14 @@ export class Knight {
       this.fatigue = 100;
     }
   }
+
+  doFireFestival() {
+    this.fatigue += 30;
+    if (this.fatigue > 100) {
+      this.fatigue = 100;
+    }
+  }
+
   doAction(fatigue = 5) {
     if (this.fatigue < fatigue) return false;
     else {
@@ -54,7 +62,7 @@ export class Knight {
         if (this.feeling > 100) {
           this.feeling = 100;
         }
-        if (this.clearPatrolCount == this.clearValue.length) this.isClear = true;
+        if (this.clearPatrolCount === this.clearValue.length) this.isClear = true;
         return true;
       }
     }
@@ -62,11 +70,10 @@ export class Knight {
   }
 
   printKnight() {
-    const str = `
-    name : ${this.name}   fatigue : ${this.fatigue}   actionCount : ${this.actionCount} 
-    build : ${this.build}   patrol : ${this.patrol}   develop : ${this.develop}     
-    feeling : ${this.feeling}  isClear : ${this.isClear}  clearPatrolCount : ${this.clearPatrolCount} 
-    `;
+    const str = `${this.name}   
+    피로도 : ${this.fatigue}   활동수 : ${this.actionCount} 
+    호감도 : ${this.feeling} ${this.isClear ? "공략완료" : ""}
+    공략순찰횟수 : ${this.clearPatrolCount} `;
     return str;
   }
 }

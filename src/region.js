@@ -12,7 +12,7 @@ export class Region {
 
   fight(data) {
     let { knights, action } = data;
-    if (this.fightCount > 6 || this.isClear) {
+    if (this.fightCount >= 6 || this.isClear) {
       return false;
     } else {
       this.fightCount++;
@@ -42,6 +42,7 @@ export class Region {
         action.knights.map(name => {
           feelingBonus = knights[name].sex === "male" ? malefeelingPlus : femalefeelingPlus;
           knights[name].feelup(4 + feelingBonus);
+          return feelingBonus;
         });
         break;
       case "knight":
@@ -90,11 +91,10 @@ export class Region {
   }
 
   printRegion() {
-    const str = `
-    name: ${this.name}  requiredSpirit: ${this.requiredSpirit}  isClear: ${this.isClear}
-    buildings: ${this.buildings}  buildingMax: ${this.buildingMax}
-    fightCount: ${this.fightCount}  patrolCount: ${this.patrolCount}
-    `;
+    const str = `${this.name}
+    전투횟수: ${this.fightCount}
+    건물: ${this.buildings.length ? this.buildings : "없음"}
+    최대건물수: ${this.buildingMax}`;
     return str;
   }
 
